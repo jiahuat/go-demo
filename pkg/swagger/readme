@@ -1,0 +1,71 @@
+swag
+位于wscp-restful目录下
+swag init -o api -g cmd/main.go
+open：http://172.20.10.8:8080/swagger/index.htm
+
+
+注释语法
+具体语法见 官方文档，这里主要列出几个特殊的点。
+
+Controller 注释支持很多字段，这里主要记录常用的。
+
+tags：给 API 按照 tag 分组，便于管理。
+
+accept、produce：API 接收和响应的 MMIE 类型。
+
+param：接口请求参数，重要
+
+Syntax：param name,param type,data type,is mandatory?,comment attribute(optional)
+response、success、failure：API 响应内容，如果成功失败返回值不一样也可以通过 success、failure 分别描述。
+
+Syntax：return code,{param type},data type,comment
+header：响应头
+
+Syntax： return code,{param type},data type,comment
+router：接口路由
+
+Syntax：path,[httpMethod]
+主要详细记录一下 param 和 response 该怎么写。
+
+param
+语法：param name,param type,data type,is mandatory?,comment attribute(optional)
+
+参数类型：
+
+query
+path
+header
+body
+formData
+数据类型：
+
+string (string)
+integer (int, uint, uint32, uint64)
+number (float32)
+boolean (bool)
+user defined struct
+示例
+
+// @Param        Authorization  header  string                     true  "JWT"
+// @Param        req            body    listModel                  true  "相关信息"
+// @Param        amount         query    string  				    true  "订单金额(元)"
+type listModel struct {
+	AnswerId string `form:"answerId"`
+	Page     int    `form:"page"`
+}
+以上示例就用到了 3 种参数：
+
+header 中的 Authorization
+body 中的 listModel
+queryString 中的 amount
+由于是可以用结构体的，所以一般都建议使用结构体，这样比较简洁。
+
+resp
+语法：return code,{param type},data type,comment
+
+返回值类型和数据类型和 param 都是一致的。
+
+示例：
+
+// @Success      200  {object}  respmodel.WxPayMp
+// @Failure      400  {object}  srv.Result
