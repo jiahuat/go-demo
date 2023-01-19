@@ -1,0 +1,8 @@
+http:
+  addr: :8080
+
+cluster:
+  cluster_name: myClusterName_v2
+
+k8s:
+  kube_conf_path: the/path/of/kube_conf_path
