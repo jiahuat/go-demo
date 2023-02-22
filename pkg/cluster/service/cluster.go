@@ -5,8 +5,9 @@ import (
 
 	appv1 "k8s.io/api/apps/v1"
 
-	k8s "westone.com/wscp-restful/pkg/adapters/k8s"
-	models "westone.com/wscp-restful/pkg/cluster/models"
+	k8s "github.com/jiahuat/go-demo/pkg/adapters/k8s"
+	models "github.com/jiahuat/go-demo/pkg/cluster/models"
+	werr "github.com/jiahuat/go-demo/pkg/error"
 )
 
 // cluster service
@@ -35,6 +36,9 @@ func (s *Service) CreateCluster(ctx context.Context, req *models.CreateClusterRe
 	}
 
 	err := s.k8sClient.Create(ctx, &appv1.Deployment{})
+	if err != nil {
+		return werr.NewErr(100, "k8s create cluster with err", err)
+	}
 
-	return err
+	return nil
 }

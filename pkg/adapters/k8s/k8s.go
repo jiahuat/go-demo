@@ -9,6 +9,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
+//go:generate mockery -name=InterfaceK8s
 type InterfaceK8s interface {
 	Create(ctx context.Context, d *appv1.Deployment) error
 }

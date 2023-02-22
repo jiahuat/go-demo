@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	_ "westone.com/wscp-restful/api"
+	_ "github.com/jiahuat/go-demo/api"
 )
 
 // 添加注释以描述 server 信息

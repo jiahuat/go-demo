@@ -18,11 +18,11 @@ import (
 	"github.com/spf13/viper"
 	"k8s.io/klog/v2"
 
-	whttp "westone.com/wscp-restful/pkg/cluster/delivery/http"
-	metrics "westone.com/wscp-restful/pkg/metrics"
-	option "westone.com/wscp-restful/pkg/option"
-	swag "westone.com/wscp-restful/pkg/swagger"
-	"westone.com/wscp-restful/pkg/tracing"
+	whttp "github.com/jiahuat/go-demo/pkg/cluster/delivery/http"
+	metrics "github.com/jiahuat/go-demo/pkg/metrics"
+	option "github.com/jiahuat/go-demo/pkg/option"
+	swag "github.com/jiahuat/go-demo/pkg/swagger"
+	"github.com/jiahuat/go-demo/pkg/tracing"
 )
 
 var LogLevel *string
@@ -52,8 +52,9 @@ func execute() error {
 	AlsoLogToStdErr = flags.String("alsologtostderr", "false", "true or false")
 	// init klog
 	klog.InitFlags(nil)
-	flags.Set("log_file", ".")
-	flags.Set("alsologtostderr", "true")
+	flag.Set("log_file", *LogFile)
+	flag.Set("alsologtostderr", "true")
+	flag.Set("logtostderr", "false")
 	flag.Set("v", *LogLevel)
 	log.Println("this is from cobra, loglevel ", *LogLevel)
 	klog.V(1).Infoln("hello this is from klog Level: 1")
@@ -100,7 +101,7 @@ func startServer(config *option.Config) {
 	clusterRouter := router.Group("/cluster")
 	// todo: handle err
 	whttp.RegisHandlers(clusterRouter, config)
-	// 条件加载
+	// swagger
 	swag.RegisSwagger(router)
 
 	srv := &http.Server{

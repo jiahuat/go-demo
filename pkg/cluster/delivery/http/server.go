@@ -4,11 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	k8s "westone.com/wscp-restful/pkg/adapters/k8s"
-	"westone.com/wscp-restful/pkg/cluster/models"
-	"westone.com/wscp-restful/pkg/cluster/service"
+	k8s "github.com/jiahuat/go-demo/pkg/adapters/k8s"
+	"github.com/jiahuat/go-demo/pkg/cluster/models"
+	"github.com/jiahuat/go-demo/pkg/cluster/service"
 
-	"westone.com/wscp-restful/pkg/option"
+	"github.com/jiahuat/go-demo/pkg/option"
 )
 
 // http server
